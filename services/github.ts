@@ -1,44 +1,41 @@
-import ModelClient from "@azure-rest/ai-inference";
+import ModelClient, { isUnexpected } from "@azure-rest/ai-inference";
 import { AzureKeyCredential } from "@azure/core-auth";
-import { createSseStream } from "@azure/core-sse";
+import type { EmbedService, EmbeddingRequest, EmbeddingResponse } from "../types";
 
 const token = process.env["GITHUB_TOKEN"]!;
 const endpoint = "https://models.github.ai";
-const model = "meta/Llama-3.2-11B-Vision-Instruct";
+const model = "openai/text-embedding-3-large";
 const client = ModelClient(endpoint, new AzureKeyCredential(token));
 
-export const githubService: AIService = {
-  name: 'GitHub-Azure-Vision',
-  async chat(messages: ChatMessage[]) {
-    const response = await client
-      .path("/inference/chat/completions")
+export const githubService: EmbedService = {
+  name: "GitHub-Embeddings",
+
+  async embed(request: EmbeddingRequest): Promise<EmbeddingResponse[]> {
+    const response = await (client as any)
+      .path("/inference/embeddings")
       .post({
         body: {
-          messages: messages as any,
           model,
-          temperature: 1.0,
-          max_tokens: 1000,
-          stream: true,
-        }
+          input: request.input, // string | string[]
+        },
       });
 
-    // ✅ response.body es STRING con SSE lines
-    const sseString = response.body as string;
+    if (isUnexpected(response)) {
+      throw new Error(
+        (response.body as any)?.error?.message ?? "Unknown embeddings error"
+      );
+    }
 
-    return (async function* () {
-      const lines = sseString.split('\n');
-      for (const line of lines) {
-        if (line.startsWith('data: ')) {
-          const data = line.slice(6);
-          if (data === '[DONE]') break;
+    const body = response.body as any;
+    // body.data es un array de objetos: { object, embedding, index } [web:56][web:57]
+    const data = body.data ?? [];
 
-          try {
-            const chunk = JSON.parse(data);
-            const token = chunk.choices?.[0]?.delta?.content ?? '';
-            if (token) yield token;
-          } catch {}
-        }
-      }
-    })();
+    const result: EmbeddingResponse[] = data.map((item: any) => ({
+      object: item.object,
+      embedding: item.embedding,
+      index: item.index,
+    }));
+
+    return result;
   },
 };

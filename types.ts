@@ -13,3 +13,19 @@ export interface AIService {
 	name: string;
 	chat: (messages:ChatMessage[]) => Promise<AsyncIterable<string>>;
 }
+
+
+export interface EmbeddingRequest{
+        input: string | string[];
+};
+
+export interface EmbeddingResponse{
+        object:string;
+        embedding:number[];
+        index?:number;
+};
+
+export type EmbedService = {
+        name:string;
+        embed: (request: EmbeddingRequest) => Promise<EmbeddingResponse[]>;
+};

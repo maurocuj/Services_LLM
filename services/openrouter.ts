@@ -1,10 +1,10 @@
 import {OpenRouter} from "@openrouter/sdk";
-import type { AIService, ChatMessage } from '../type';
+import type { AIService, ChatMessage } from '../types';
 
 const openrouter = new OpenRouter();
 
 export const openrouterService: AIService = {
-  name: 'OpenRouter-Fetch',
+  name: 'OpenRouter',
   async chat(messages: ChatMessage[]) {
     // Filtra system para visión
     const visionMessages = messages
@@ -21,7 +21,7 @@ export const openrouterService: AIService = {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'qwen/qwen-2.5-vl-7b-instruct:free',
+        model: "qwen/qwen3-vl-30b-a3b-thinking",
         messages: visionMessages,
         temperature: 0.7,
         stream: true,
