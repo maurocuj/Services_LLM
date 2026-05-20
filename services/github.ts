@@ -4,7 +4,7 @@ import type { EmbedService, EmbeddingRequest, EmbeddingResponse } from "../types
 
 const token = process.env["GITHUB_TOKEN"]!;
 const endpoint = "https://models.github.ai";
-const model = "openai/text-embedding-3-large";
+const model = "openai/text-embedding-3-small";
 const client = ModelClient(endpoint, new AzureKeyCredential(token));
 
 export const githubService: EmbedService = {

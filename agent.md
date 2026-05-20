@@ -32,6 +32,12 @@ Server defaults to port `3002` unless `PORT` is set.
 - `GROQ_API_KEY` (if Groq chat service is enabled)
 - `OPENROUTER_API_KEY` (if OpenRouter chat service is enabled)
 - `GITHUB_TOKEN` (required for embeddings endpoint)
+- `HUGGINGFACE_API_KEY` (required if HuggingFace embeddings are enabled)
+- `HF_EMBED_MODEL` (optional HuggingFace embedding model)
+- `HF_INFERENCE_PROVIDER` (optional HuggingFace provider override; otherwise uses auto)
+- `AZURE_OPENAI_ENDPOINT` (required for Azure OpenAI embedding service)
+- `AZURE_OPENAI_API_KEY` (required for Azure OpenAI embedding service)
+- `AZURE_OPENAI_EMBED_MODEL` (optional, defaults to `text-embedding-3-small`)
 - `GOOGLE_API_KEY` (only if Gemini service is enabled)
 
 ## API behavior notes

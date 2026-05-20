@@ -21,7 +21,9 @@
     "@cerebras/cerebras_cloud_sdk": "^1.64.1",
     "@google/genai": "^1.38.0",
     "@google/generative-ai": "^0.24.1",
+    "@huggingface/inference": "^4.8.0",
     "@openrouter/sdk": "^0.3.11",
-    "groq-sdk": "1.1.2"
+    "groq-sdk": "1.1.2",
+    "openai": "^4.104.0"
   }
 }

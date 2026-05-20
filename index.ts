@@ -1,6 +1,8 @@
 import {groqService} from './services/groq';
 import {cerebrasService} from './services/cerebras';
 import {githubService} from './services/github';
+import {huggingfaceService} from './services/huggingface';
+import {azureOpenAIEmbedService} from './services/azure-openai';
 import {openrouterService} from './services/openrouter';
 import {geminiService} from './services/gemini';
 import type { AIService, ChatMessage, EmbedService, EmbeddingRequest } from './types';
@@ -13,7 +15,9 @@ const servicesChat: AIService[] =[
 ]
 
 const servicesEmbed: EmbedService[] = [
-	githubService
+	//huggingfaceService,
+        azureOpenAIEmbedService,
+        githubService
 ]
 
 let currentChatIndex = 0;

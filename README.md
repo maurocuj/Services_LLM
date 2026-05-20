@@ -46,6 +46,12 @@ Set these in your environment (or in a local `.env` loaded by your process manag
 - `GROQ_API_KEY` (required if Groq is enabled)
 - `OPENROUTER_API_KEY` (required if OpenRouter is enabled)
 - `GITHUB_TOKEN` (required for `/embed`)
+- `HUGGINGFACE_API_KEY` (required if HuggingFace embeddings are enabled)
+- `HF_EMBED_MODEL` (optional, default: `sentence-transformers/all-MiniLM-L6-v2`)
+- `HF_INFERENCE_PROVIDER` (optional, for example: `scaleway`; if omitted, HF uses `auto`)
+- `AZURE_OPENAI_ENDPOINT` (required if Azure OpenAI embeddings are enabled)
+- `AZURE_OPENAI_API_KEY` (required if Azure OpenAI embeddings are enabled)
+- `AZURE_OPENAI_EMBED_MODEL` (optional, default: `text-embedding-3-small`)
 - `GOOGLE_API_KEY` (required only if Gemini is enabled)
 
 ## Install and run
