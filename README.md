@@ -56,6 +56,12 @@ Set these in your environment (or in a local `.env` loaded by your process manag
 
 ## Install and run
 
+Create your local env file from the example:
+
+```bash
+cp .env.example .env
+```
+
 ```bash
 bun install
 bun run dev
